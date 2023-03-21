@@ -23,6 +23,40 @@ fn echo() {
 }
 
 #[allow(dead_code)]
+fn echo_continously() {
+    use std::net::TcpListener;
+    use std::io::{Read, Write};
+
+    let tcp_listener = match TcpListener::bind("127.0.0.1:8000") {
+        Ok(listener) => listener,
+        Err(e) => { eprintln!("Failed to create a TCP Listener due to: {e}"); std::process::exit(1); }
+    };
+
+    println!("Listening on address: {}", tcp_listener.local_addr().unwrap());
+
+    for stream in tcp_listener.incoming() {
+        match stream {
+            Ok(mut stream) => {
+                let mut buffer = [0; 50];
+                let peer_addr = stream.peer_addr().unwrap();
+                match stream.read(&mut buffer) {
+                    Ok(size) => {
+                        println!("Read {size} bytes from {peer_addr}");
+                        println!("Msg: {:?}", std::str::from_utf8(&buffer[0..size]).unwrap());
+                        let _ = stream.write(&buffer[0..size]);
+                    },
+                    Err(e) => {
+                        eprintln!("Error reading from ({peer_addr}) due to: {e}");
+                        std::process::exit(1);
+                    }
+                }
+            },
+            Err(e) => eprintln!("Failed to accept TCP connection due to: {e}"),
+        }
+    }
+}
+
+#[allow(dead_code)]
 fn socket_file() {
     use std::os::unix::net::UnixListener;
     use std::io::Read;
