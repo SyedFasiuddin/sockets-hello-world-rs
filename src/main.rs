@@ -1,7 +1,11 @@
-use std::os::unix::net::UnixListener;
-use std::io::Read;
+#[allow(dead_code)]
+fn echo() {}
 
-fn main() {
+#[allow(dead_code)]
+fn socket_file() {
+    use std::os::unix::net::UnixListener;
+    use std::io::Read;
+
     let listener = match UnixListener::bind("/tmp/socket-rs-hello.socket") {
         Ok(socket) => socket,
         Err(e) => { eprintln!("Failed to create the socket due to: {e}"); std::process::exit(1); }
@@ -17,4 +21,8 @@ fn main() {
         },
         Err(e) => eprintln!("Failed to accept connection due to: {e}"),
     }
+}
+
+fn main() {
+
 }
