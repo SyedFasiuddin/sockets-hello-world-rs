@@ -1,5 +1,26 @@
 #[allow(dead_code)]
-fn echo() {}
+fn echo() {
+    use std::net::TcpListener;
+    use std::io::{Read, Write};
+
+    let tcp_listener = match TcpListener::bind("127.0.0.1:8000") {
+        Ok(listener) => listener,
+        Err(e) => { eprintln!("Failed to create a TCP Listener due to: {e}"); std::process::exit(1); }
+    };
+
+    println!("Listening on address: {}", tcp_listener.local_addr().unwrap());
+
+    match tcp_listener.accept() {
+        Ok((mut tcp_stream, client_addr)) => {
+            println!("Connection established from: {client_addr}");
+            let mut buffer = String::new();
+            let _ = tcp_stream.read_to_string(&mut buffer);
+            println!("Received data: {buffer}");
+            let _ = tcp_stream.write(buffer.as_bytes());
+        },
+        Err(e) => eprintln!("Failed to accept TCP connection due to: {e}"),
+    }
+}
 
 #[allow(dead_code)]
 fn socket_file() {
