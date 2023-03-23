@@ -135,7 +135,7 @@ fn chat_server() {
                         let size = std::io::stdin().read_line(&mut input).unwrap();
                         println!("Read: {size} bytes of input");
 
-                        let size = stream.write(&input.as_bytes()).unwrap();
+                        let size = stream.write(input.as_bytes()).unwrap();
                         println!("Wrote {size} bytes to connection");
                         input.clear()
                     },
