@@ -34,11 +34,11 @@ function does not return anything to the client.
   the input from the user on both sides is a string.
 
 TODO:
------
-[ ] communication using `mpsc` (multi-producer single-consumer).\
-    [ ] or check to see if there can be a single-producer and single-consumer.\
-    [ ] two way communication.\
-        - can this be done on single pipe?\
-        - or we need to have two pipes, each side being consumer of one pipe.\
-[ ] using Unix domain socket, communication between two different processes.\
-[ ] use UDP to send and receive some data.\
+---
+- [ ] communication using `mpsc` (multi-producer single-consumer).
+	- [ ] or check to see if there can be a single-producer and single-consumer.
+	- [ ] two way communication.
+		- can this be done on single pipe?
+		- or we need to have two pipes, each side being consumer of one pipe.
+- [ ] using Unix domain socket, communication between two different processes.
+- [ ] use `UDP` to send and receive some data.
