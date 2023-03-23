@@ -29,7 +29,7 @@ fn echo() {
 }
 
 #[allow(dead_code)]
-fn echo_continously() {
+fn echo_continuously() {
     use std::io::{Read, Write};
     use std::net::TcpListener;
 
