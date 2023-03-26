@@ -183,7 +183,8 @@ fn chat_server() {
     }
 }
 
-fn main() {
+#[allow(dead_code)]
+fn handle_args_for_chat() {
     let args: Vec<String> = std::env::args().collect();
     if args[1] == "-c" {
         // client
@@ -192,4 +193,8 @@ fn main() {
         // server
         chat_server()
     }
+}
+
+fn main() {
+
 }
